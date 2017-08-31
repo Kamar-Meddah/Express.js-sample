@@ -1,0 +1,20 @@
+<% include header.ejs %>
+
+
+            <form action="/" method="post">
+                <h3><em>Poster Vos Commentaires</em></h3>
+
+                <label for="name">Name : </label> 
+                <input type="text" id="name" class="form-control control" name="name"placeholder="Enter Ur Name" required>
+                <br>
+                <label for="msg">Votre Commentaire : </label>
+                <textarea id="msg" class="form-control control" name="msg" required></textarea>
+                <br>
+
+                <div class="text-right ">
+                    <button type="submit " class="btn btn-outline-primary"><em> Commenter</em></button>
+                </div>
+            </form>
+
+
+<% include footer.ejs %>

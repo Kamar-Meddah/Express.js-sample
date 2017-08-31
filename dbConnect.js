@@ -3,12 +3,8 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
-  database : 'blog'
+  database : 'a'
 });
 
 connection.connect();
-
-connection.query('SELECT * FROM users', function(err, rows, fields) {
-  if (err) throw err;
-  console.log(rows);
-});
+module.exports=connection;
