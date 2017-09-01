@@ -3,7 +3,7 @@ const app = express();
 const db = require('./dbConnect');
 const fs=require('fs');
 const bodyParser = require('body-parser');
-
+const CT=require('./app/table/commentsTable');
 
 
 // view engine
@@ -17,7 +17,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //router
 app.get('/', function (request, response) {
-  response.render('index.ejs',{'title':'home'});
+  CT.all((rows)=>{
+    console.log(rows)
+    response.render('index.ejs',{'title':'home','rows':rows});
+  })
+  
 });
 
 app.post('/',(request,response)=>{
@@ -28,7 +32,6 @@ app.post('/',(request,response)=>{
     if (err) throw err;
   });
   response.redirect('/');
-
 
 })
 
