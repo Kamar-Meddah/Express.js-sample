@@ -1,4 +1,4 @@
-const table = require('../../core/table');
+const table = require('../../core/table/table');
 class commentsTable extends table{
 
     constructor(){
