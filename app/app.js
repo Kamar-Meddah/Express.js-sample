@@ -1,20 +1,25 @@
-const dbConnect=require('../core/database/mySqlDB');
-
 class app{//Begin Class
 
-     static getDb(){
+     static getIntance(){
+         if(this.instance === undefined){
+             this.instance = new app();
+         }
+         return this.instance;
+     }
 
+     getDb(){
+         
         if(this.DB=== undefined){
+            const dbConnect=require('../core/database/mySqlDB');
             this.DB=new dbConnect(require('../config/dbconfig'));
-            console.log('1st connection')
-            
-        }
-        else{
-            console.log('nth connection');
         }
         return this.DB.getDbConnect();
-       
+    }
+
+    getTable(name){
+        let n=name+'Table';
+        return require('./table/'+n);
     }
 
 }//END Class
-module.exports=app;
+module.exports=app.getIntance();
