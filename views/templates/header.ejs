@@ -18,4 +18,16 @@
 
             </div>
         </nav>
+        <% if(locals.flash) { %>
+            <div class='container' style='overflow:hidden;'>
+                    <div class="alert alert-<%= locals.flash.type %> alert-dismissible fade show" role='alert'>
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span> </button>
+                        <%= locals.flash.msg%>
+                    </div>
+                </div>
+                <br>
+        <% } %>
         <div class="container">
+
+            
