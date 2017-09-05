@@ -5,6 +5,12 @@ class table {//Begin Class
         this.db=db;
     }
 
+    countAll(cb){
+        this.db.query(`SELECT count(id) as total FROM ${this.tab} `,(err,rows)=>{
+            cb(rows);
+        })
+    }
+
     all(cb){
      this.db.query(`SELECT * FROM ${this.tab} `,(err,rows)=>{
          if(err) throw err;
@@ -12,18 +18,19 @@ class table {//Begin Class
      });
     }
     
-    all(id,cb){
+    find(id,cb){
         this.db.query(`SELECT * FROM ${this.tab} WHERE id=?`,[id],(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
        }
     
-     last(cb){
-        this.db.query(`SELECT * FROM ${this.tab} ORDER BY date DESC`,(err,rows)=>{
+     last(arg=[],cb){
+        this.db.query(`SELECT * FROM ${this.tab} ORDER BY date DESC LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
+        
        }
     
     create(fields=[],values=[]){

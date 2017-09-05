@@ -4,20 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrapfix.css">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrapfix.css">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <title><%= locals.title %></title>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse" style="background-color:black;">
-            <div >
-                <a class="navbar-brand" href="index.php?p=articles.index"><em><b class="blue">Blog</b></em></a>
-
+    <nav class="navbar fixed-top navbar-toggleable-sm navbar-inverse" style="background-color:black">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+        <div class="row">
+            <div class="col-sm-1 col-1">
+                <div class="dropdown navbar-brand text-info">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#!/users/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                    </div>
+                </div>
             </div>
-        </nav>
+            <a class="navbar-brand" style="margin-left:1em;" href="/1">
+                <i class="fa fa-university text-info" aria-hidden="true"></i>
+            </a>
+        </div>
+    
+        <div class="collapse navbar-collapse" id="navbarExample">
+            <ul class="navbar-nav ml-auto " role="toolbar">
+    
+                <li class="nav-item">
+                    <form class="form-inline" method="get" action="/yuyu">
+                        <div class="input-group">
+                            <input ng-model="search" id="search" class="form-control re" type="text" placeholder="Search" required>
+                            <button id="button" class="btn btn-sm" type="submit " style="background-color:white;"><i class="fa fa-search s" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    
+    </nav>
+
+
+
+
         <% if(locals.flash) { %>
             <div class='container' style='overflow:hidden;'>
                     <div class="alert alert-<%= locals.flash.type %> alert-dismissible fade show" role='alert'>

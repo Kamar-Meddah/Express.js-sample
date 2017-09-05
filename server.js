@@ -3,9 +3,13 @@ const app = express();
 const fs=require('fs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const comCtrl=require('./app/controller/commentsCtrl');
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore(require('./config/sessionStore'));
+
+//charger les Ctrl 
+const comCtrl=require('./app/controller/commentsCtrl');
+const articlesCtrl=require('./app/controller/articlesCtrl');
+
 
 // view engine
 app.set('view engine', 'ejs');
@@ -25,11 +29,15 @@ app.use(require('./core/middlewares/flash'))
 
 
 //router
-app.get('/',comCtrl.getcomments);
+app.get('/',(request,response)=>{
+  response.redirect('/1');
+});
+app.get('/:page',articlesCtrl.home);
+app.get('/category=:cat=:id/:page',articlesCtrl.byCategorie);
 
 
 //post requests
-app.post('/',comCtrl.create)
+//app.post('/',comCtrl.create)
 
 
 //server port default=80
