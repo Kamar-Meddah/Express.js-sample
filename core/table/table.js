@@ -12,7 +12,7 @@ class table {//Begin Class
     }
 
     all(cb){
-     this.db.query(`SELECT * FROM ${this.tab} `,(err,rows)=>{
+     this.db.query(`SELECT * FROM ${this.tab} ORDER BY titre ASC`,(err,rows)=>{
          if(err) throw err;
          cb(rows);
      });
@@ -45,21 +45,21 @@ class table {//Begin Class
         });
     }
      
-    update(id,fields=[],values=[]){
+    update(id,fields=[],values=[]){ 
         let chain='';
         fields.forEach((field,i)=>{
             field+=' = ?'
             fields[i]=field;
         })
         chain= fields.join();
-        values=values.push(id);
+        values.push(id);
         this.db.query(`UPDATE ${this.tab} SET ${chain} WHERE id=?`,values,(err)=>{
             if(err) throw err
         });
     }
 
     delete(id){
-        this.db.query(`DELETE ${this.tab} WHERE id=?`,[id],(err)=>{
+        this.db.query(`DELETE FROM ${this.tab} WHERE id=?`,[id],(err)=>{
             if(err) throw err
         })
     }

@@ -14,6 +14,9 @@ const articlesCtrl=require('./app/controller/articlesCtrl');
 const usersCtrl=require('./app/controller/usersCtrl');
 
 const adminHomeCtrl=require('./app/controller/admin/adminHomeCtrl');
+const adminUserCtrl=require('./app/controller/admin/adminUserCtrl');
+const categoriesCtrl=require('./app/controller/admin/categoriesCtrl');
+const adminArticlesCtrl=require('./app/controller/admin/articlesCtrl');
 
 
 // view engine
@@ -42,20 +45,39 @@ app.get('/category=:cat=:id/:page',articlesCtrl.byCategorie);
 app.get('/search/:page/',articlesCtrl.search);
 app.get('/category=:categorie/post=:titre/:id/',articlesCtrl.show);
 app.get('/users/login/',usersCtrl.index);
-//------------------admin------------
-app.get('/admin/index/',adminHomeCtrl.index);
-app.get('/users/logout/',(request,response)=>{
-  request.session.userId=undefined;
-  request.setFlash('success','vous etes deconneté');
-  response.redirect('/');
-
-});
-
-//-------------------------------------------
 
 //post requests
 app.post('/category=:categorie/post=:titre/:id/commenting',commentsCtrl.create)
 app.post('/users/login/',usersCtrl.login);
+
+//middlewares to check if user is connected if not block the code
+app.use(require('./core/middlewares/logged'))
+
+//------------------admin------------
+
+//get
+app.get('/admin/index/',adminHomeCtrl.index);
+app.get('/admin/user/edit/username/',adminUserCtrl.usernameChange);
+app.get('/admin/user/edit/password/',adminUserCtrl.passChange);
+app.get('/users/logout/',adminUserCtrl.logout);
+app.get('/admin/categories/:page',categoriesCtrl.index);
+app.get('/admin/categories/edit/add/',categoriesCtrl.addCategorie);
+app.get('/admin/categories/edit/:titre/:id/',categoriesCtrl.editCategorie);
+app.get('/admin/articles/:page',adminArticlesCtrl.index);
+
+
+//post 
+app.post('/admin/user/edit/password/',adminUserCtrl.passEdit);
+app.post('/admin/user/edit/username/',adminUserCtrl.usernameEdit);
+app.post('/admin/categories/edit/add/',categoriesCtrl.create);
+app.post('/admin/categories/delete/',categoriesCtrl.delete);
+app.post('/admin/categories/edit/:titre/:id/',categoriesCtrl.update);
+app.post('/admin/articles/delete/',adminArticlesCtrl.delete);
+
+
+//-------------------------------------------
+
+
 
 //server port default=80
 app.listen(80);

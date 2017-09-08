@@ -42,6 +42,20 @@ class articlesTable extends table{
         
        }
 
+       all(arg=[],cb){
+        this.db.query(`SELECT
+        articles.id,articles.titre,categories.titre as categorie,articles.category_id as catid
+        FROM
+        articles LEFT JOIN categories
+        ON articles.category_id=categories.id
+        ORDER BY articles.date desc
+        LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,(err,rows)=>{
+            if(err) throw err;
+            cb(rows);
+        });
+        
+       }
+
        search(index,arg=[],cb){
         let z=[];
         let t=[];
@@ -67,7 +81,7 @@ class articlesTable extends table{
         });
         
        }
-   
+
        countSearch(index,cb){
         let z=[];
         let t=[];

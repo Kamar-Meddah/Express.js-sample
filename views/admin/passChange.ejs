@@ -1,0 +1,20 @@
+<% include templates/header.ejs %>
+
+    <form class="form-group" method="post" action="/admin/user/edit/password/">
+
+        <div class="container col-sm-8">
+            <h2 class="form-signin-heading">Nouveau mot de passe</h2>
+            <br>
+
+            <label for="ancien_pass">Ancien Mots de passe</label><input type="password" name="ancien_pass" class="form-control control" placeholder="Enter old password" required>
+            <br>
+
+            <label for="new_pass">Nouveau Mots de passe</label><input type="password" name="new_pass" class="form-control control" placeholder="Enter new password" required>
+
+            <br>
+            <div class="text-right">
+                <button type="submit" class="btn btn-outline-success"><i class="fa fa-check" aria-hidden="true"></i> <em>Change</em></button> </div>
+        </div>
+    </form>
+
+    <% include templates/footer.ejs %>

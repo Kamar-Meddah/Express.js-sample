@@ -1,0 +1,59 @@
+<% include templates/header.ejs %>
+
+    <h1><i class="fa fa-file-text" aria-hidden="true"></i>  <em><b>Articles</b></em></h1>
+    <br>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/index/"><i class="fa fa-home" aria-hidden="true"></i>  <em>Home</em></a></li>
+        <li class="breadcrumb-item active"><i class="fa fa-file-text" aria-hidden="true"></i>  <em>Posts</em></li>
+    </ol>
+    <br>
+
+        <a href="/admin/articles/edit/add/" class="btn btn-outline-success"><i class="fa fa-plus" aria-hidden="true"></i><em>Ajouter des nouveau posts</em></a><br><br>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-inverse">
+                    <td class="text-center"><b><em>id</em></b></td>
+                    <td class="text-center"><b><em>categorie</em></b></td>
+                    <td class="text-center"><b><em>titre</em></b></td>
+                    <td class="text-center"><b><em>action</em></b></td>
+                </thead>
+                <tbody>
+                    <% for (post of articles) {%>
+                    <tr>
+                        <td class="text-center"><b><%=post.id%></b></td>
+                        <td><%=post.categorie%></td>
+                        <td><%=post.titre%></td>
+                        <td class="text-center">
+                            <a href="/admin/articles/edit/<%=post.titre%>/<%=post.id%>" class="btn btn-outline-warning" style="margin-right:1em;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><em>Edit</em></a>
+                            <form action="/admin/articles/delete/" method="post" style="display: inline" onsubmit="return confirm('Est ce que voue etes sur')">
+                                <input type="hidden" name="id" value="<%=post.id%>">
+                                <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i><em>Delete</em></button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <br>
+            <ul class="pagination justify-content-center ">
+                    <li class="page-item <% if (pa.p == 1) { %> <%='disabled'%>  <% } %>">
+                        <a class="page-link" href="/admin/posts/<%= pa.p-1 %>">&laquo;</a>
+                    </li>
+    
+                    <% for(var i=1;i<=pa.nbr;i++) { %>                  
+                    <li class="page-item  <% if (pa.p ==i) { %> <%='active'%>  <% } %>">
+                        <a class="page-link" href="/admin/posts/<%= i %>"><%= i %></a>
+                    </li>
+                    <% } %>
+    
+                    <li class="page-item <% if (pa.p >=pa.nbr) { %> <%='disabled'%>  <% } %>">
+                        <a class="page-link" href="/admin/posts/<%= (pa.p*1)+1 %>">&raquo;</a>
+                    </li>
+                </ul>
+        </div>
+
+<% include templates/footer.ejs %>
