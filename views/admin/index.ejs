@@ -1,0 +1,53 @@
+<% include templates/header.ejs %>
+
+    <h1><b><i class="fa fa-home" aria-hidden="true"></i> <em>Administration</em></b></h1>
+    <br>
+    <div class="row admin">
+
+        <div class="col-md-4 col-sm-6 col-12">
+            <a href="/">
+                <h1 style="font-size:12em"><i class="fa fa-home" aria-hidden="true"></i> </h1>
+                <h2>Page d'accueil</h2>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-12">
+            <a href="/admin/categories/1">
+                <h1 style="font-size:12em"><i class="fa fa-folder-open" aria-hidden="true"></i></h1>
+                <h2>Edit Categories</h2>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-12">
+            <a href="/admin/posts/1">
+                <h1 style="font-size:12em"><i class="fa fa-file-text" aria-hidden="true"></i></h1>
+                <h2>Edit Articles</h2>
+            </a>
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-12">
+            <a href="/admin/user/edit/username">
+                <h1 style="font-size:12em"><i class="fa fa-user-secret" aria-hidden="true"></i></h1>
+                <h2>Change usernames</h2>
+            </a>
+        </div>
+ 
+        <div class="col-md-4 col-sm-6 col-12">
+            <a href="#!/admin/user/edit/password">
+                <h1 style="font-size:12em"><i class="fa fa-key" aria-hidden="true"></i></h1>
+                <h2>Changer Mots de passe</h2>
+            </a>
+        </div>
+ 
+        <div class="col-md-4 col-sm-6 col-12">
+            <a  href="/users/logout/" >
+                <h1 style="font-size:12em"><i class="fa fa-sign-out" aria-hidden="true"></i></h1>
+                <h2>Déconnecter</h2>
+            </a>
+        </div>
+ 
+ 
+    </div>
+
+
+<% include templates/footer.ejs %>

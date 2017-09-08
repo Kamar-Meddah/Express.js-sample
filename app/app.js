@@ -1,6 +1,6 @@
 class app{//Begin Class
 
-     static getIntance(){
+     static getInstance(){
          if(this.instance === undefined){
              this.instance = new app();
          }
@@ -21,5 +21,14 @@ class app{//Begin Class
         return require('./table/'+n);
     }
 
+    getDbAuth(){
+        
+       if(this.dbAuth=== undefined){
+           const auth=require('../core/admin/dbAuth');
+           this.dbAuth=new auth();
+       }
+       return this.dbAuth;
+   }
+
 }//END Class
-module.exports=app.getIntance();
+module.exports=app.getInstance();

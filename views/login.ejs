@@ -1,0 +1,20 @@
+<% include templates/header.ejs %>
+
+    <form class="form-signin" method="post" action="#">
+
+        <div class="container col-sm-8">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="username">username</label>
+            <input type="text" name="username" class="form-control control" autofocus required>
+            <br>
+            <label for="password">password</label>
+            <input name="password" type="password" name="password" class="form-control control" required>
+            <br>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-outline-info"><i class="fa fa-sign-in" aria-hidden="true"></i><em> login</em></button>
+            </div>
+        </div>
+    </form>
+
+<% include templates/footer.ejs %>
