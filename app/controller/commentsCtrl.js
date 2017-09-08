@@ -2,22 +2,15 @@ const appCtrl=require('../appCtrl');
 
 class commentsCtrl extends appCtrl{
 
-  getcomments (request, response) { 
-      const comments=require('../app').getTable('comments');
-      comments.last((rows)=>{
-      response.render('com',{'title':'home','rows':rows,'prettydate':require("pretty-date")});  
-      });
-  }
-
   create(request,response){
-      if((request.body.name ===undefined) ||(request.body.name=='')||(request.body.msg ===undefined )||(request.body.msg=='')){
-        request.setFlash('danger','succ pff enfin');
+      if((request.body.name ===undefined) ||(request.body.name=='')||(request.body.comment ===undefined )||(request.body.comment=='')){
+        request.setFlash('danger','veuillez enter votre nom et votre commentaire');
       }else{
       const comments=require('../app').getTable('comments');
-      comments.create(["name","content"],[request.body.name,request.body.msg]);
-      request.setFlash('success','succ pff enfin');
-    }
-      response.redirect('/');
+      comments.create(["name","content","articles_id"],[request.body.name,request.body.comment,request.params.id]);
+      request.setFlash('success','Votre commentaire a été poster');
+    };
+      response.redirect(`/category=${request.params.categorie}/post=${request.params.titre}/${request.params.id}/`);
   }
 
 }

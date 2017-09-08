@@ -6,7 +6,7 @@
         <br>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/"><i class="fa fa-home" aria-hidden="true"></i><em> Home</em></a></li>
-            <li class="breadcrumb-item active"><i class="fa fa-folder-open-o" aria-hidden="true"></i> <em><%=pa.cat%></em></li>
+            <li class="breadcrumb-item active"><i class="fa fa-file-text-o" aria-hidden="true"></i> <em><%=pa.query%></em></li>
         </ol>
         <br>
             <% for (post of articles) { %>
@@ -26,17 +26,17 @@
             <br>
             <ul class="pagination justify-content-center ">
                 <li class="page-item <% if (pa.p == 1) { %> <%='disabled'%>  <% } %>">
-                    <a class="page-link" href="/category=<%=pa.cat%>=<%=pa.id%>/<%= pa.p-1 %>">&laquo;</a>
+                    <a class="page-link" href="/search/<%= pa.p-1 %>/?search=<%= pa.query %>">&laquo;</a>
                 </li>
 
                 <% for(var i=1;i<=pa.nbr;i++) { %>                  
                 <li class="page-item  <% if (pa.p ==i) { %> <%='active'%>  <% } %>">
-                    <a class="page-link" href="/category=<%=pa.cat%>=<%=pa.id%>/<%= i %>"><%= i %></a>
+                    <a class="page-link" href="/search/<%= i %>/?search=<%= pa.query %>"><%= i %></a>
                 </li>
                 <% } %>
 
                 <li class="page-item <% if (pa.p >=pa.nbr) { %> <%='disabled'%>  <% } %>">
-                    <a class="page-link" href="/category=<%=pa.cat%>=<%=pa.id%>/<%= (pa.p*1)+1 %>">&raquo;</a>
+                    <a class="page-link" href="/search/<%= (pa.p*1)+1 %>/?search=<%= pa.query %>">&raquo;</a>
                 </li>
 
             </ul>

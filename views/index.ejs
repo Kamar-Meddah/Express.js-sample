@@ -5,20 +5,20 @@
         <h1><i class="fa fa-home" aria-hidden="true"></i><em><b> Home</b></em></h1>
         <br>
         <br>
-
             <% for (post of articles) { %>
                 <div>
-                <h2><a href="#"><%= post.titre %></a></h2>
+                <h2><a href="/category=<%= post.categorie %>/post=<%= post.titre %>/<%= post.id %>/"><%= post.titre %></a></h2>              
                 <a href="/category=<%=post.categorie%>=<%=post.catid%>/1"><i class="fa fa-folder-open-o" aria-hidden="true"></i><em class="shadow"> <%= post.categorie %></em></a>
-               <p>
-                <p><%- post.contenu %></p>
+                <p><%- sanitizeHtml(post.contenu+` ...`) %>
+                    <a href="/category=<%= post.categorie %>/post=<%= post.titre %>/<%= post.id %>/">Voir la suite</a>
                 </p>
+                <div class="text-right"><em><%= ago(post.date) %></em></div>
                 <b><hr></b>
            
             </div>
              <% } %>
 
-        <div>
+
             <br>
             <ul class="pagination justify-content-center ">
                 <li class="page-item <% if (pa.p == 1) { %> <%='disabled'%>  <% } %>">
@@ -35,12 +35,10 @@
                     <a class="page-link" href="/<%= (pa.p*1)+1 %>">&raquo;</a>
                 </li>
 
-            </ul>
-        </div>
 
 
     </div>
-    <div class="col-sm-4 col-4">
+    <div class="col-sm-4 col-8">
         <br><br><br>
         <h2><i class="fa fa-folder-open-o" aria-hidden="true"></i><em> Categories</em></h2>
         <% for(cat of categories) { %>

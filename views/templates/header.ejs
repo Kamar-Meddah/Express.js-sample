@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrapfix.css">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/lightbox.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <title><%= locals.title %></title>
 </head>
@@ -36,9 +37,9 @@
             <ul class="navbar-nav ml-auto " role="toolbar">
     
                 <li class="nav-item">
-                    <form class="form-inline" method="get" action="/yuyu">
+                    <form class="form-inline" method="get" action="/search/1/">
                         <div class="input-group">
-                            <input ng-model="search" id="search" class="form-control re" type="text" placeholder="Search" required>
+                            <input name="search" id="search" class="form-control re" type="text" placeholder="Search" required>
                             <button id="button" class="btn btn-sm" type="submit " style="background-color:white;"><i class="fa fa-search s" aria-hidden="true"></i></button>
                         </div>
                     </form>

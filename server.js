@@ -6,8 +6,10 @@ const bodyParser = require('body-parser');
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore(require('./config/sessionStore'));
 
+
+
 //charger les Ctrl 
-const comCtrl=require('./app/controller/commentsCtrl');
+const commentsCtrl=require('./app/controller/commentsCtrl');
 const articlesCtrl=require('./app/controller/articlesCtrl');
 
 
@@ -30,14 +32,18 @@ app.use(require('./core/middlewares/flash'))
 
 //router
 app.get('/',(request,response)=>{
-  response.redirect('/1');
+    response.redirect('/1');
 });
 app.get('/:page',articlesCtrl.home);
 app.get('/category=:cat=:id/:page',articlesCtrl.byCategorie);
+app.get('/search/:page/',articlesCtrl.search);
+app.get('/category=:categorie/post=:titre/:id/',articlesCtrl.show);
+
+
 
 
 //post requests
-//app.post('/',comCtrl.create)
+app.post('/category=:categorie/post=:titre/:id/commenting',commentsCtrl.create)
 
 
 //server port default=80
