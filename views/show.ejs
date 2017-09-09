@@ -13,6 +13,7 @@
             <br>
             <div><%- article.contenu %></div> <br>
             <div class="row">
+
                 <% for(image of images) { %>
                 <div class="col-sm-4 col-12">
                     <a href="/img/articles/<%=image.name%>" data-lightbox="roadtrip">
@@ -70,8 +71,12 @@
                             <p> <%=comment.content%> </p>
                            
                         </div>
-                        <i ng-show="dat " ng-click="delete(comment.id,$index) " class="fa fa-times t " aria-hidden="true "></i>
-                        
+                        <% if (con){%>
+                            <form action="" method="post" onsubmit="return confirm('Est ce que voue etes sur')">
+                                <input type="hidden" name="id" value="<%= comment.id %>">
+                       <button type="submit" style="background-color:white;border:0px white"><i class="fa fa-times t " aria-hidden="true "></i></button> 
+                    </form>
+                       <%}%>
                     </div>
                     <hr>
                     <% }%>

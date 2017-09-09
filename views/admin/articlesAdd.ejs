@@ -1,0 +1,40 @@
+<% include templates/header.ejs %>
+
+    <a href="/admin/articles/1">
+<i class="fa fa-chevron-circle-left m" aria-hidden="true"></i><br><br></a>
+    <h1><i class="fa fa-plus" aria-hidden="true"></i>  <em>Ajouter un article</em></h1><br>
+
+        <form method="post" enctype="multipart/form-data" action="">
+            <input type="hidden" name="request" value="Articles.add">
+            <div class="row">
+                <div class="col-sm-8 col-10">
+                    <label for="titre">Titre</label>
+                    <input type="text" ng-model="titre" name="titre" class="form-control control" placeholder="post title" autofocus required>
+                    <br>
+
+                    <label for="content">Contenu</label>
+                    <textarea name="content" class="form-control control" ></textarea>
+                    <br>
+
+                    <label for="category">Catégorie</label>
+                    <select class="form-control custom-select" name="category" ng-model="category">
+                   <option ng-repeat="categorie in categories" value="{{categorie.id}}">{{categorie.titre}}</option>
+                </select>
+                    <br>
+
+                    <div class="text-right">
+                        <br>
+                        <button type="submit" class="btn btn-outline-primary"><i class="fa fa-check" aria-hidden="true"></i><em> Enregistrer</em></button>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-2">
+                    <br>
+                    <label class="custom-file">
+                <input type="file" ng-model="files"  name="images[]" class="btn btn-primary" multiple>
+                </label>
+                </div>
+
+            </div>
+        </form>
+<% include templates/footer.ejs %>

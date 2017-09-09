@@ -13,5 +13,12 @@ class commentsCtrl extends appCtrl{
       response.redirect(`/category=${request.params.categorie}/post=${request.params.titre}/${request.params.id}/`);
   }
 
+  delete(request,response){
+    const comments=require('../app').getTable('comments');   
+    comments.delete(request.body.id);
+           request.setFlash('success','commentaire supprimé');
+        response.redirect(`/category=${request.params.categorie}/post=${request.params.titre}/${request.params.id}/`);
+  }
+
 }
 module.exports = new commentsCtrl();

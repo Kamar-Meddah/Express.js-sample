@@ -88,8 +88,9 @@ class articlesCtrl extends appCtrl{
       articles.find(request.params.id,(post)=>{
         images.findImg(request.params.id,(img)=>{
           comments.find(request.params.id,(comments)=>{
+            let con= request.session.userId ===undefined? false:true;
             title=post[0][0].titre;
-            response.render('show',{'title':title,'images':img,'article':post[0][0],'categories':post[1],'comments' : comments,'ago':require('pretty-date').format});
+            response.render('show',{'title':title,'images':img,'article':post[0][0],'categories':post[1],'comments' : comments,'ago':require('pretty-date').format,'con':con});
           })
         })
       })

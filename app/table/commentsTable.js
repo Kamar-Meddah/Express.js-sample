@@ -8,11 +8,10 @@ class commentsTable extends table{
     }
 
     find(id,cb){
-        this.db.query(`SELECT * FROM comments WHERE articles_id=? `,[id],(err,rows)=>{
+        this.db.query(`SELECT * FROM comments WHERE articles_id=? ORDER BY date DESC`,[id],(err,rows)=>{
             cb(rows);
         })
     }
-
 
 }
 

@@ -1,7 +1,17 @@
 </div>
-<script src="/js/jquery.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/tether.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/lightbox.js"></script>
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script>tinymce.init(
+     { selector:'textarea',
+        height: 300,
+        inline: false,
+        plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code insertdatetime media table contextmenu paste code ',
+        skin: 'lightgray',
+        theme: 'modern' });
+</script>
+
 </body>
 </html> 

@@ -24,7 +24,7 @@ class articlesCtrl extends appCtrl{
     })
 }
 
-  addCategorie(request, response){
+  add(request, response){
     response.render('admin/articlesAdd',{'title':'Add articles'});
   }
 
@@ -33,10 +33,13 @@ class articlesCtrl extends appCtrl{
   }
 
   create(request,response){
+    console.log(request.body)
+    /*
     const articles=require('../../app').getTable('articles');
     articles.create(['titre'],[request.body.titre]);
     request.setFlash('success','categorie inserted');
     response.redirect('/admin/articles/1/');
+    */
   }
 
   update(request,response){
