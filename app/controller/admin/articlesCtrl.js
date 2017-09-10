@@ -6,7 +6,7 @@ class articlesCtrl extends appCtrl{
     const articles=require('../../app').getTable('articles');
     let page=1;
     articles.countAll((nbr)=>{
-      let parpage=4;
+      let parpage=6;
       if(isNaN(request.params.page)){
          page=1;
       }else{
@@ -19,7 +19,7 @@ class articlesCtrl extends appCtrl{
       let pageinfo={'nbr':nbpage,'p':page}
       //----------------------------
       articles.all([arg1,arg2],(rows)=>{
-        response.render('admin/articlesIndex',{'title':'articles list','articles':rows,'pa':pageinfo});
+        response.render('admin/post/articlesIndex',{'title':'articles list','articles':rows,'pa':pageinfo});
       });
     })
 }
@@ -27,7 +27,7 @@ class articlesCtrl extends appCtrl{
   add(request, response){
     const categories=require('../../app').getTable('categories');
     categories.all2((row)=>{
-      response.render('admin/articlesAdd',{'title':'Add articles','categories':row});
+      response.render('admin/post/articlesAdd',{'title':'Add articles','categories':row});
     })
   }
 
@@ -38,7 +38,7 @@ class articlesCtrl extends appCtrl{
     images.findImg(request.params.id,(imgs)=>{
       categories.all2((row)=>{
         articles.find(request.params.id,(post)=>{
-          response.render('admin/articlesEdit',{'title':'Edit articles','categories':row,'images':imgs,'article':post});
+          response.render('admin/post/articlesEdit',{'title':'Edit articles','categories':row,'images':imgs,'article':post});
         })
       })
     })

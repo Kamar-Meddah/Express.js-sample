@@ -3,7 +3,7 @@ const appCtrl=require('../../appCtrl');
 class adminUserCtrl extends appCtrl{
 
   passChange(request, response) { 
-    response.render('admin/passchange',{'title':'nouveau mots de passe'});
+    response.render('admin/user/passchange',{'title':'nouveau mots de passe'});
    }
 
    passEdit(request, response) { 
@@ -22,7 +22,7 @@ class adminUserCtrl extends appCtrl{
     }
 
     usernameChange(request, response) { 
-        response.render('admin/usernamechange',{'title':'nouveau nom d\'utilisateur'});
+        response.render('admin/user/usernamechange',{'title':'nouveau nom d\'utilisateur'});
        }
 
     usernameEdit(request, response) { 

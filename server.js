@@ -8,8 +8,6 @@ const upload = multer({dest: 'public/img/articles/' }); // for parsing multipart
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore(require('./config/sessionStore'));
 
-
-
 //loading all Ctrls
 const commentsCtrl=require('./app/controller/commentsCtrl');
 const articlesCtrl=require('./app/controller/articlesCtrl');
@@ -20,7 +18,6 @@ const adminUserCtrl=require('./app/controller/admin/adminUserCtrl');
 const categoriesCtrl=require('./app/controller/admin/categoriesCtrl');
 const adminArticlesCtrl=require('./app/controller/admin/articlesCtrl');
 const imagesCtrl=require('./app/controller/admin/imagesCtrl');
-
 
 // view engine
 app.set('view engine', 'ejs');

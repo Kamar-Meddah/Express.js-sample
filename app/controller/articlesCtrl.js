@@ -7,7 +7,7 @@ class articlesCtrl extends appCtrl{
       const categories=require('../app').getTable('categories');
       let page=1;
       articles.countAll((nbr)=>{
-        let parpage=4;
+        let parpage=6;
         if(isNaN(request.params.page)){
            page=1;
         }else{
@@ -32,7 +32,7 @@ class articlesCtrl extends appCtrl{
        const categories=require('../app').getTable('categories');
        let page=1;
        articles.countByCategorie(request.params.id,(nbr)=>{
-         let parpage=2;
+         let parpage=6;
          if(isNaN(request.params.page)){
             page=1;
          }else{
@@ -65,7 +65,7 @@ class articlesCtrl extends appCtrl{
     let query=url.parse(request.url,true).query.search;
     let page=1;
     articles.countSearch(query,(nbr)=>{
-      let parpage=2;
+      let parpage=6;
       if(isNaN(request.params.page)){
          page=1;
       }else{
@@ -108,10 +108,6 @@ class articlesCtrl extends appCtrl{
         })
       })
     }else{response.redirect('/')}
-    
-     
    }
-
-
-}
+}//End Class
 module.exports = new articlesCtrl();

@@ -19,17 +19,17 @@ class categoriesCtrl extends appCtrl{
       let pageinfo={'nbr':nbpage,'p':page}
       //----------------------------
       categories.all([arg1,arg2],(rows)=>{
-        response.render('admin/categoriesIndex',{'title':'Categories list','categories':rows,'pa':pageinfo});
+        response.render('admin/categorie/categoriesIndex',{'title':'Categories list','categories':rows,'pa':pageinfo});
       });
     })
 }
 
   addCategorie(request, response){
-    response.render('admin/categoriesAdd',{'title':'Add categories'});
+    response.render('admin/categorie/categoriesAdd',{'title':'Add categories'});
   }
 
   editCategorie(request, response){
-    response.render('admin/categoriesEdit',{'title':'Edit categories'});
+    response.render('admin/categorie/categoriesEdit',{'title':'Edit categories','val':request.params.titre});
   }
 
   create(request,response){
@@ -59,9 +59,8 @@ class categoriesCtrl extends appCtrl{
         request.setFlash('danger','impossible de supprimer la categorie car elle n\'est pas vide');
         response.redirect('/admin/categories/1/');
       }
-
     })
   }
-  
+
 }
 module.exports = new categoriesCtrl();
