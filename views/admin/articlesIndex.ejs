@@ -41,17 +41,17 @@
             <br>
             <ul class="pagination justify-content-center ">
                     <li class="page-item <% if (pa.p == 1) { %> <%='disabled'%>  <% } %>">
-                        <a class="page-link" href="/admin/posts/<%= pa.p-1 %>">&laquo;</a>
+                        <a class="page-link" href="/admin/articles/<%= pa.p-1 %>">&laquo;</a>
                     </li>
     
                     <% for(var i=1;i<=pa.nbr;i++) { %>                  
                     <li class="page-item  <% if (pa.p ==i) { %> <%='active'%>  <% } %>">
-                        <a class="page-link" href="/admin/posts/<%= i %>"><%= i %></a>
+                        <a class="page-link" href="/admin/articles/<%= i %>"><%= i %></a>
                     </li>
                     <% } %>
     
                     <li class="page-item <% if (pa.p >=pa.nbr) { %> <%='disabled'%>  <% } %>">
-                        <a class="page-link" href="/admin/posts/<%= (pa.p*1)+1 %>">&raquo;</a>
+                        <a class="page-link" href="/admin/articles/<%= (pa.p*1)+1 %>">&raquo;</a>
                     </li>
                 </ul>
         </div>

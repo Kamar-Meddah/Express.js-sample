@@ -5,11 +5,10 @@
     <h1><i class="fa fa-plus" aria-hidden="true"></i>  <em>Ajouter un article</em></h1><br>
 
         <form method="post" enctype="multipart/form-data" action="">
-            <input type="hidden" name="request" value="Articles.add">
             <div class="row">
                 <div class="col-sm-8 col-10">
                     <label for="titre">Titre</label>
-                    <input type="text" ng-model="titre" name="titre" class="form-control control" placeholder="post title" autofocus required>
+                    <input type="text"  name="titre" class="form-control control" placeholder="post title" autofocus required>
                     <br>
 
                     <label for="content">Contenu</label>
@@ -17,8 +16,10 @@
                     <br>
 
                     <label for="category">Catégorie</label>
-                    <select class="form-control custom-select" name="category" ng-model="category">
-                   <option ng-repeat="categorie in categories" value="{{categorie.id}}">{{categorie.titre}}</option>
+                <select class="form-control custom-select" name="category">
+                    <% for (categorie of categories) { %>
+                   <option value="<%=categorie.id%>"><%=categorie.titre%></option>
+                   <% }%>
                 </select>
                     <br>
 
@@ -31,7 +32,7 @@
                 <div class="col-sm-4 col-2">
                     <br>
                     <label class="custom-file">
-                <input type="file" ng-model="files"  name="images[]" class="btn btn-primary" multiple>
+                <input type="file" ng-model="files"  name="images" class="btn btn-primary" multiple>
                 </label>
                 </div>
 

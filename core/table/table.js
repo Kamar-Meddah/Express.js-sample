@@ -33,19 +33,22 @@ class table {//Begin Class
         
        }
     
-    create(fields=[],values=[]){
+    create(fields=[],values=[],cb=null){
         let chain='';
         fields.forEach((field,i)=>{
             field+=' = ?'
             fields[i]=field;
         })
         chain= fields.join();
-        this.db.query(`INSERT INTO ${this.tab} SET ${chain}`,values,(err)=>{
+        this.db.query(`INSERT INTO ${this.tab} SET ${chain}`,values,(err,res)=>{
             if(err) throw err
+            if(cb !== null){
+                cb(res.insertId);
+            }
         });
     }
      
-    update(id,fields=[],values=[]){ 
+    update(id,fields=[],values=[],cb=null){ 
         let chain='';
         fields.forEach((field,i)=>{
             field+=' = ?'
@@ -55,6 +58,9 @@ class table {//Begin Class
         values.push(id);
         this.db.query(`UPDATE ${this.tab} SET ${chain} WHERE id=?`,values,(err)=>{
             if(err) throw err
+            if(cb !== null){
+                cb();
+            }
         });
     }
 

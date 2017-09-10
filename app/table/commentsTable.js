@@ -13,6 +13,14 @@ class commentsTable extends table{
         })
     }
 
+    deleteCom(id,cb=null){
+        this.db.query(`DELETE FROM comments WHERE articles_id=? `,[id],(err)=>{
+            if(cb !== null){
+                cb();
+            }
+        })
+    }
+
 }
 
 module.exports=new commentsTable();

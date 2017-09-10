@@ -14,6 +14,12 @@ class categoriesTable extends table{
         });
        }
 
+    all2(cb){
+        this.db.query(`SELECT * FROM categories`,(err,row)=>{
+            cb(row)
+        })
+    }
+
     }
 
 module.exports=new categoriesTable();

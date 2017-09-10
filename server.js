@@ -4,7 +4,7 @@ const fs=require('fs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const multer = require('multer'); // v1.0.5
-const upload = multer({dest: '/public/img/' }); // for parsing multipart/form-data
+const upload = multer({dest: 'public/img/articles/' }); // for parsing multipart/form-data
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore(require('./config/sessionStore'));
 
@@ -19,6 +19,7 @@ const adminHomeCtrl=require('./app/controller/admin/adminHomeCtrl');
 const adminUserCtrl=require('./app/controller/admin/adminUserCtrl');
 const categoriesCtrl=require('./app/controller/admin/categoriesCtrl');
 const adminArticlesCtrl=require('./app/controller/admin/articlesCtrl');
+const imagesCtrl=require('./app/controller/admin/imagesCtrl');
 
 
 // view engine
@@ -55,9 +56,9 @@ app.post('/users/login/',usersCtrl.login);
 //middlewares to check if user is connected if not block the code
 app.use(require('./core/middlewares/logged'))
 
-//------------------admin------------
+//----------------------- admin -----------------------
 
-//get
+//----------------------- get -----------------------
 app.get('/admin/index/',adminHomeCtrl.index);
 app.get('/admin/user/edit/username/',adminUserCtrl.usernameChange);
 app.get('/admin/user/edit/password/',adminUserCtrl.passChange);
@@ -67,9 +68,9 @@ app.get('/admin/categories/edit/add/',categoriesCtrl.addCategorie);
 app.get('/admin/categories/edit/:titre/:id/',categoriesCtrl.editCategorie);
 app.get('/admin/articles/:page',adminArticlesCtrl.index);
 app.get('/admin/articles/edit/add/',adminArticlesCtrl.add);
+app.get('/admin/articles/edit/:titre/:id',adminArticlesCtrl.edit);
 
-
-//post 
+//----------------------- post -----------------------
 app.post('/category=:categorie/post=:titre/:id/',commentsCtrl.delete);
 app.post('/admin/user/edit/password/',adminUserCtrl.passEdit);
 app.post('/admin/user/edit/username/',adminUserCtrl.usernameEdit);
@@ -77,17 +78,9 @@ app.post('/admin/categories/edit/add/',categoriesCtrl.create);
 app.post('/admin/categories/delete/',categoriesCtrl.delete);
 app.post('/admin/categories/edit/:titre/:id/',categoriesCtrl.update);
 app.post('/admin/articles/delete/',adminArticlesCtrl.delete);
-app.post('/admin/articles/edit/add/',upload.single('avatar'),(req,res)=>{
-
-  console.log(req.body)
-  console.log(req.file)
-});
-
-
-
-//-------------------------------------------
-
-
-
+app.post('/admin/articles/edit/add/',upload.array('images'),adminArticlesCtrl.create);
+app.post('/admin/articles/edit/:titre/:id',upload.array('images'),adminArticlesCtrl.update);
+app.post('/admin/articles/edit/deleteImg/',imagesCtrl.deleteImg);
+//-------------------------------------------------------------------------
 //server port default=80
 app.listen(80);

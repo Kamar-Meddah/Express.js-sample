@@ -13,6 +13,14 @@ class imagesTable extends table{
             cb(rows);
         })
     }
+
+    deleteImg(id,cb=null){
+        this.db.query(`DELETE FROM images WHERE articles_id=? `,[id],(err)=>{
+            if(cb !== null){
+                cb();
+            }
+        })
+    }
 }
 
 module.exports=new imagesTable();

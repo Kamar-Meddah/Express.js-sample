@@ -19,40 +19,96 @@ class articlesCtrl extends appCtrl{
       let pageinfo={'nbr':nbpage,'p':page}
       //----------------------------
       articles.all([arg1,arg2],(rows)=>{
-        response.render('admin/articlesIndex',{'title':'articles list','articles':rows[0],'pa':pageinfo});
+        response.render('admin/articlesIndex',{'title':'articles list','articles':rows,'pa':pageinfo});
       });
     })
 }
 
   add(request, response){
-    response.render('admin/articlesAdd',{'title':'Add articles'});
+    const categories=require('../../app').getTable('categories');
+    categories.all2((row)=>{
+      response.render('admin/articlesAdd',{'title':'Add articles','categories':row});
+    })
   }
 
-  editCategorie(request, response){
-    response.render('admin/articlesEdit',{'title':'Edit articles'});
+  edit(request, response){
+    const categories=require('../../app').getTable('categories');
+    const images=require('../../app').getTable('images');
+    const articles=require('../../app').getTable('articles');
+    images.findImg(request.params.id,(imgs)=>{
+      categories.all2((row)=>{
+        articles.find(request.params.id,(post)=>{
+          response.render('admin/articlesEdit',{'title':'Edit articles','categories':row,'images':imgs,'article':post});
+        })
+      })
+    })
   }
 
   create(request,response){
-    console.log(request.body)
-    /*
+    const fs=require('fs');
     const articles=require('../../app').getTable('articles');
-    articles.create(['titre'],[request.body.titre]);
-    request.setFlash('success','categorie inserted');
-    response.redirect('/admin/articles/1/');
-    */
-  }
+    
+    articles.create(['titre','contenu','category_id'],[request.body.titre,request.body.content,request.body.category],(postId)=>{
+      const images=require('../../app').getTable('images');
+      request.files.forEach((element)=>{
+        if(element.mimetype.split('/')[0] ==='image'){
+        images.create(['articles_id'],[postId],(imgId)=>{
+          fs.rename(`public/img/articles/${element.filename}`,`public/img/articles/${imgId}.jpg`,()=>{
+            let name=imgId+'.jpg';
+            images.update(imgId,['name'],[name]);
+          })//end rename
+        })//end image insert
+      }else{fs.unlink(`public/img/articles/${element.filename}`,(err)=>{
+        if (err) throw err;
+      })}
+      })//end files loop
+    });
+    request.setFlash('success','article inserted');
+    response.redirect(`/admin/articles/1`);
+  }//end create article
 
   update(request,response){
+    const fs=require('fs');
     const articles=require('../../app').getTable('articles');
-    articles.update(request.params.id,['titre'],[request.body.titre]);
-    request.setFlash('success','categorie updated');
-    response.redirect('/admin/articles/1/');
-  }
+    
+    articles.update(request.params.id,['titre','contenu','category_id'],[request.body.titre,request.body.content,request.body.category],()=>{
+      const images=require('../../app').getTable('images');
+      request.files.forEach((element)=>{
+        if(element.mimetype.split('/')[0] ==='image'){
+        images.create(['articles_id'],[request.params.id],(imgId)=>{
+          fs.rename(`public/img/articles/${element.filename}`,`public/img/articles/${imgId}.jpg`,()=>{
+            let name=imgId+'.jpg';
+            images.update(imgId,['name'],[name]);
+          })//end rename
+        })//end image insert
+      }else{fs.unlink(`public/img/articles/${element.filename}`,(err)=>{
+        if (err) {}
+      })}
+      })//end files loop
+    });
+    request.setFlash('success','article updated');
+    response.redirect(`/admin/articles/1`);
+  }//end create article
 
   delete(request,response){
     const articles=require('../../app').getTable('articles');   
-           articles.delete(request.body.id);
-           request.setFlash('success','articles supprimé');
+    const comments=require('../../app').getTable('comments');   
+    const images=require('../../app').getTable('images');
+    const fs=require('fs');
+
+      images.findImg(request.body.id,(row)=>{
+        row.forEach((element)=>{
+          fs.unlink(`public/img/articles/${element.name}`,(err,res)=>{
+           if (err) {};
+          });
+        })
+      })
+      comments.deleteCom(request.body.id);
+      images.deleteImg(request.body.id,()=>{
+    articles.delete(request.body.id);   
+    
+      });
+       request.setFlash('success','articles supprimé');
         response.redirect('/admin/articles/1/');
   }
   

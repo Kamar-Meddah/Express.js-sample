@@ -22,7 +22,7 @@ class articlesTable extends table{
         WHERE
         category_id=?
         ORDER BY articles.date DESC
-        LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,[id],(err,rows)=>{
+        LIMIT ${arg[0]},${arg[1]}`,[id],(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
@@ -35,7 +35,7 @@ class articlesTable extends table{
         articles LEFT JOIN categories
         ON articles.category_id=categories.id
         ORDER BY articles.date desc
-        LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,(err,rows)=>{
+        LIMIT ${arg[0]},${arg[1]}`,(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
@@ -49,7 +49,7 @@ class articlesTable extends table{
         articles LEFT JOIN categories
         ON articles.category_id=categories.id
         ORDER BY articles.date desc
-        LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,(err,rows)=>{
+        LIMIT ${arg[0]},${arg[1]}`,(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
@@ -75,7 +75,7 @@ class articlesTable extends table{
         ON articles.category_id=categories.id
         WHERE ${t}
         ORDER BY articles.date DESC
-        LIMIT ${arg[0]},${arg[1]};SELECT * FROM categories`,z,(err,rows)=>{
+        LIMIT ${arg[0]},${arg[1]}`,z,(err,rows)=>{
             if(err) throw err;
             cb(rows);
         });
@@ -110,9 +110,9 @@ class articlesTable extends table{
         articles LEFT JOIN categories
         ON articles.category_id=categories.id
         WHERE
-        articles.id=?;SELECT * FROM categories`,[id],(err,rows)=>{
+        articles.id=?`,[id],(err,row)=>{
             if(err) throw err;
-            cb(rows);
+            cb(row[0]);
         });
         
        }

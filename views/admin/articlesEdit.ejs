@@ -1,0 +1,65 @@
+<% include templates/header.ejs %>
+
+    <a href="/admin/articles/1">
+        <i class="fa fa-chevron-circle-left m" aria-hidden="true"></i><br><br></a>
+    <h1><i class="fa fa-pencil-square" aria-hidden="true"></i> <em>Editez vos posts</em></h1><br>
+
+        <form enctype="multipart/form-data" method="post" action="">
+            <div class="row">
+                <div class="col-sm-8 col-8">
+                    <label for="titre">Titre</label>
+                    <input type="text" name="titre" class="form-control control" placeholder="titre" value="<%=article.titre%>" required>
+                    <br>
+
+                    <label for="content">Contenu</label>
+                    <textarea name="content" class="form-control control"><%=article.contenu%></textarea>
+                    <br>
+
+                    <label for="category">Catégorie</label>
+                <select class="form-control custom-select" name="category" required>
+                        <% for (categorie of categories) { %>
+                            <option value="<%=categorie.id%>" <%= categorie.id === article.category_id ?'selected':''%>><%=categorie.titre%></option>
+                        <% }%>   
+                </select>
+                    <br>
+
+                    <div class="text-right">
+                        <br>
+                        <button type="submit" class="btn btn-outline-primary"><i class="fa fa-check" aria-hidden="true"></i><em> Enregistrer</em></button>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-4">
+                    <br>
+                    <label class="custom-file">
+                <input type="file" name="images" id="file" class="btn btn-primary" multiple>
+                </label>
+                    <br><br>
+        </form>
+        <ul>
+                <% for(image of images) {%>
+                <li class="list-unstyled">
+                    <div class="row">
+                        <div class="col-sm-1 col-1">
+                    <form  method="post" action="/admin/articles/edit/deleteImg/" onsubmit="return confirm('Est ce que voue etes sur')">
+                         <input type="hidden" name="id" value="<%= image.id %>">
+                         <input type="hidden" name="imageName" value="<%= image.name %>">
+                         <input type="hidden" name="titre" value="<%= article.titre %>">
+                         <input type="hidden" name="postID" value="<%= article.id %>">
+                          <button type="submit" style="background-color:white;border:0px white"><i class="fa fa-times t" aria-hidden="true "></i></button> 
+                    </form>
+                </div>
+                <div class="col-sm-10 col-10">
+                    <br>
+                    <a href="/img/articles/<%=image.name%>" data-lightbox="roadtrip"> <img src="/img/articles/<%=image.name%>" class="img-fluid img-thumbnail" alt="Images" width="280px"></a>
+                    <hr>
+                </div>
+                    </div>
+                </li>
+                <%}%>
+            </ul>
+
+    </div>
+</div>
+    </div>
+<% include templates/footer.ejs %>
